@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stopwatch</title>
+
+<style>
+
+:root{
+    --dark:#276F27;
+    --primary:#499A13;
+    --light:#8ECA3C;
+    --accent:#BBDC12;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+
+    background:linear-gradient(135deg,var(--dark),var(--primary));
+
+    height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.container{
+
+    width:90%;
+    max-width:420px;
+
+    background:rgba(255,255,255,.08);
+
+    padding:40px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    backdrop-filter:blur(10px);
+
+    box-shadow:0 20px 40px rgba(0,0,0,.3);
+
+    animation:fade .8s ease;
+
+}
+
+h1{
+
+    font-size:55px;
+
+    margin-bottom:35px;
+
+    color:var(--accent);
+
+    letter-spacing:2px;
+
+}
+
+.buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+}
+
+button{
+
+    padding:14px 25px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:var(--accent);
+
+    color:var(--dark);
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    transform:translateY(-4px);
+
+    background:var(--light);
+
+}
+
+button:active{
+
+    transform:scale(.95);
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+transform:translateY(40px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+@media(max-width:500px){
+
+h1{
+
+font-size:42px;
+
+}
+
+button{
+
+width:100%;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 id="timer">00:00:00</h1>
+
+<div class="buttons">
+
+<button id="start">Start</button>
+
+<button id="stop">Stop</button>
+
+<button id="reset">Reset</button>
+
+</div>
+
+</div>
+
+<script>
+
+const timer=document.getElementById("timer");
+const start=document.getElementById("start");
+const stop=document.getElementById("stop");
+const reset=document.getElementById("reset");
+
+let t=null;
+
+let h=0;
+let m=0;
+let s=0;
+
+function updateTimer(){
+
+timer.textContent=
+`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+
+}
+
+start.addEventListener("click",()=>{
+
+if(t!==null)return;
+
+start.textContent="Running";
+
+t=setInterval(()=>{
+
+s++;
+
+if(s===60){
+
+s=0;
+m++;
+
+}
+
+if(m===60){
+
+m=0;
+h++;
+
+}
+
+updateTimer();
+
+},1000);
+
+});
+
+stop.addEventListener("click",()=>{
+
+if(t===null)return;
+
+clearInterval(t);
+
+t=null;
+
+start.textContent="Resume";
+
+});
+
+reset.addEventListener("click",()=>{
+
+clearInterval(t);
+
+t=null;
+
+h=0;
+m=0;
+s=0;
+
+updateTimer();
+
+start.textContent="Start";
+
+});
+
+</script>
+
+</body>
+</html>

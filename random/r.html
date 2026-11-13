@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucky Number Game</title>
+
+<style>
+
+:root{
+    --bg:#2C3930;
+    --card:#3F4F44;
+    --primary:#A27B5C;
+    --text:#DCD7C9;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+
+    background:var(--bg);
+    color:var(--text);
+
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+
+}
+
+.container{
+
+    width:100%;
+    max-width:450px;
+
+    background:var(--card);
+
+    padding:40px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    box-shadow:0 20px 40px rgba(0,0,0,.35);
+
+    animation:fade .8s ease;
+
+    transition:.4s;
+
+}
+
+.container:hover{
+
+    transform:translateY(-8px);
+
+}
+
+h1{
+
+    margin-bottom:25px;
+
+    color:var(--primary);
+
+}
+
+input{
+
+    width:100%;
+
+    padding:15px;
+
+    font-size:18px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:12px;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    border:2px solid transparent;
+
+    transition:.3s;
+
+}
+
+input:focus{
+
+    border-color:var(--primary);
+
+    transform:scale(1.02);
+
+}
+
+button{
+
+    width:100%;
+
+    margin-top:25px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    background:var(--primary);
+
+    color:var(--text);
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    transform:translateY(-4px) scale(1.02);
+
+    box-shadow:0 10px 25px rgba(162,123,92,.4);
+
+}
+
+button:active{
+
+    transform:scale(.96);
+
+}
+
+#Result{
+
+    margin-top:30px;
+
+    color:var(--text);
+
+    font-size:22px;
+
+    word-wrap:break-word;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:translateY(40px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+@media(max-width:600px){
+
+.container{
+
+padding:25px;
+
+}
+
+h1{
+
+font-size:26px;
+
+}
+
+button{
+
+font-size:16px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Enter Your Lucky Number</h1>
+
+<input
+type="number"
+id="number"
+placeholder="Enter a number between 0 and 9"
+min="0"
+max="9">
+
+<button type="button" id="click">
+Check Lucky Number
+</button>
+
+<h2 id="Result">Result</h2>
+
+</div>
+
+<script>
+
+const number = document.getElementById("number");
+const click = document.getElementById("click");
+const Result = document.getElementById("Result");
+
+click.addEventListener("click", () => {
+
+    const computer_lucky_no = Math.floor(Math.random() * 10);
+
+    console.log(computer_lucky_no);
+
+    if (number.value == computer_lucky_no){
+
+        Result.textContent = "🎉 You Won the Game!";
+
+    }
+
+    else{
+
+        Result.textContent =
+        `😢 You Lost! Computer Lucky Number is ${computer_lucky_no}`;
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
